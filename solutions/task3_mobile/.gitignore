@@ -1,0 +1,12 @@
+# OS junk
+.DS_Store
+
+# Node
+node_modules/
+
+# WebdriverIO / Appium artifacts
+allure-results/
+allure-report/
+.appium/
+logs/
+*.log

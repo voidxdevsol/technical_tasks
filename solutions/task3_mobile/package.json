@@ -1,0 +1,26 @@
+{
+  "name": "task3-mobile-automation",
+  "version": "1.0.0",
+  "description": "Moxymind Technical Task #3 — Mobile test automation for the iOS Calculator (Appium + WebdriverIO + TypeScript, Screen Object Model)",
+  "type": "module",
+  "engines": {
+    "node": ">=18 <=22"
+  },
+  "scripts": {
+    "test": "wdio run ./wdio.conf.ts",
+    "report": "allure generate ./allure-results --clean && allure open"
+  },
+  "devDependencies": {
+    "@wdio/allure-reporter": "^9.2.14",
+    "@wdio/appium-service": "^9.4.1",
+    "@wdio/cli": "^9.4.1",
+    "@wdio/local-runner": "^9.4.1",
+    "@wdio/mocha-framework": "^9.4.1",
+    "@wdio/spec-reporter": "^9.2.14",
+    "@types/node": "^22.10.0",
+    "appium": "^2.12.1",
+    "appium-xcuitest-driver": "^7.28.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.0"
+  }
+}
