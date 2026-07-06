@@ -1,0 +1,14 @@
+# OS junk
+.DS_Store
+
+# Secrets — real API key stays local
+.env
+
+# Node
+node_modules/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
