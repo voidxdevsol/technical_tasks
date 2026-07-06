@@ -12,7 +12,7 @@ briefs are in [`tasks/`](tasks/).
 |---|------|-------|----------|--------|
 | 1 | Frontend test automation | [PDF](tasks/Moxymind_technical_task1_Frontend_automation.docx.pdf) | [`solutions/task1_frontend/`](solutions/task1_frontend/) | ✅ Done |
 | 2 | API test automation | [PDF](tasks/Moxymind_technical_task2_API_automation.pdf) | [`solutions/task2_api/`](solutions/task2_api/) | ✅ Done |
-| 3 | Mobile test automation | [PDF](tasks/Moxymind_technical_task3_Mobile_automation.docx.pdf) | _coming soon_ | 🚧 Planned |
+| 3 | Mobile test automation | [PDF](tasks/Moxymind_technical_task3_Mobile_automation.docx.pdf) | [`solutions/task3_mobile/`](solutions/task3_mobile/) | ✅ Done |
 
 ## Task 1 — Frontend (saucedemo.com)
 
@@ -44,6 +44,24 @@ bun install
 bunx playwright test
 ```
 
+## Task 3 — Mobile (iOS Settings)
+
+Appium + WebdriverIO + TypeScript on the iOS Simulator, using the Screen Object
+Model. Two scenarios: drill-down navigation to device info (General → About) and
+cross-section navigation (Accessibility). Calculator is used in the brief as an
+example, but it is not bundled in the iOS Simulator, so the always-present
+Settings app is the SUT.
+
+→ **[Full README and run instructions](solutions/task3_mobile/README.md)**
+
+```bash
+cd solutions/task3_mobile
+nvm use                                 # Node 22 (see .nvmrc)
+bun install
+bunx appium driver install xcuitest
+bun run test
+```
+
 ## Repository layout
 
 ```
@@ -51,6 +69,7 @@ technical_tasks/
 ├── tasks/          # Original assignment PDFs
 ├── solutions/      # One self-contained folder per task
 │   ├── task1_frontend/
-│   └── task2_api/
+│   ├── task2_api/
+│   └── task3_mobile/
 └── README.md       # You are here
 ```
