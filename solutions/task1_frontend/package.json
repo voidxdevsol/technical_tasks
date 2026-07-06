@@ -1,0 +1,17 @@
+{
+  "name": "task1-frontend-automation",
+  "version": "1.0.0",
+  "description": "Moxymind Technical Task #1 — Frontend test automation for saucedemo.com (Playwright + TypeScript, Page Object Model)",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0"
+  }
+}
