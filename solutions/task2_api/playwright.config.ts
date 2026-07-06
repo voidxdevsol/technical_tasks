@@ -1,5 +1,10 @@
 import { defineConfig } from '@playwright/test';
-import 'dotenv/config';
+import { config as loadEnv } from 'dotenv';
+
+// Load .env from this config's own directory so the API key resolves no matter
+// which working directory the tests are launched from (repo root, subfolder,
+// or the VSCode Test Explorer).
+loadEnv({ path: new URL('.env', import.meta.url) });
 
 /**
  * Playwright configuration for the reqres.in API automation suite.
