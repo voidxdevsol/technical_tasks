@@ -27,11 +27,11 @@ test.describe('Cart', () => {
     for (const product of PRODUCTS) {
       await inventory.addToCart(product);
     }
-    expect(await inventory.cartCount()).toBe(PRODUCTS.length);
+    await expect(inventory.cartBadge).toHaveText(String(PRODUCTS.length));
 
     await inventory.openCart();
     await cart.expectLoaded();
-    expect(await cart.itemCount()).toBe(PRODUCTS.length);
-    expect(await cart.names()).toEqual(PRODUCTS);
+    await expect(cart.cartItems).toHaveCount(PRODUCTS.length);
+    await expect(cart.itemNames).toHaveText(PRODUCTS);
   });
 });

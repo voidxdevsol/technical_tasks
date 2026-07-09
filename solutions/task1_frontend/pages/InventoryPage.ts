@@ -39,12 +39,6 @@ export class InventoryPage {
     await this.itemCard(productName).getByRole('button', { name: 'Remove' }).click();
   }
 
-  /** Cart badge count as a number; 0 when the badge is absent. */
-  async cartCount(): Promise<number> {
-    if (await this.cartBadge.count() === 0) return 0;
-    return Number(await this.cartBadge.innerText());
-  }
-
   async openCart(): Promise<void> {
     await this.cartLink.click();
   }

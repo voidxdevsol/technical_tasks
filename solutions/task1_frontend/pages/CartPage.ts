@@ -20,14 +20,6 @@ export class CartPage {
     await expect(this.title).toHaveText('Your Cart');
   }
 
-  async itemCount(): Promise<number> {
-    return this.cartItems.count();
-  }
-
-  async names(): Promise<string[]> {
-    return this.itemNames.allInnerTexts();
-  }
-
   async checkout(): Promise<void> {
     await this.checkoutButton.click();
   }
