@@ -1,4 +1,5 @@
-import { $, browser } from '@wdio/globals';
+import { $, browser, expect } from '@wdio/globals';
+import type { ChainablePromiseElement } from 'webdriverio';
 
 const BUNDLE_ID = 'com.apple.Preferences';
 
@@ -7,8 +8,8 @@ const BUNDLE_ID = 'com.apple.Preferences';
  *
  * Design pattern: Screen Object Model (the mobile equivalent of the Page Object
  * Model). Every locator and interaction lives here; tests speak in intent
- * (`search`, `openRow`, `isOnPage`) rather than raw selectors, so a UI change
- * is fixed in one place.
+ * (`openRow`, `expectOnPage`) rather than raw selectors, so a UI change is
+ * fixed in one place.
  *
  * Locators use iOS accessibility identifiers (`~name`) and predicate strings —
  * the most stable XCUITest selector types.
@@ -31,29 +32,55 @@ export class SettingsScreen {
     );
   }
 
+  /**
+   * Block until the element stops moving.
+   *
+   * XCUITest taps the coordinates an element occupied when the click was issued.
+   * Settings inserts rows asynchronously after launch (e.g. the "Ready for Apple
+   * Intelligence" banner), which shifts the list down mid-tap and lands the tap
+   * on the wrong row. Playwright performs this stability check before every
+   * action; Appium does not, so it is done explicitly here.
+   */
+  private async waitUntilStable(el: ChainablePromiseElement): Promise<void> {
+    let previous: { x: number; y: number } | null = null;
+
+    await browser.waitUntil(
+      async () => {
+        const { x, y } = await el.getLocation();
+        const settled = previous !== null && previous.x === x && previous.y === y;
+        previous = { x, y };
+        return settled;
+      },
+      {
+        timeout: 10000,
+        interval: 200,
+        timeoutMsg: 'Element kept moving — layout never settled',
+      },
+    );
+  }
+
   /** Relaunch Settings from a clean state so each test starts at the root. */
   async open(): Promise<void> {
     await browser.execute('mobile: terminateApp', { bundleId: BUNDLE_ID });
     await browser.execute('mobile: launchApp', { bundleId: BUNDLE_ID });
-    await this.searchField.waitForExist({ timeout: 15000 });
+    await this.searchField.waitForDisplayed({ timeout: 15000 });
   }
 
-  /** Tap a row by its visible label. */
+  /** Tap a row by its visible label, once it is displayed and no longer moving. */
   async openRow(name: string): Promise<void> {
     const el = this.row(name);
     await el.waitForDisplayed({ timeout: 10000 });
+    await this.waitUntilStable(el);
     await el.click();
   }
 
-  /** Whether a row with the given label is currently displayed. */
-  async isRowDisplayed(name: string): Promise<boolean> {
-    return this.row(name).isDisplayed();
+  /** Assert the navigation bar for the given screen title is displayed. */
+  async expectOnPage(title: string): Promise<void> {
+    await expect(this.navBar(title)).toBeDisplayed();
   }
 
-  /** Whether the navigation bar for the given screen title is displayed. */
-  async isOnPage(title: string): Promise<boolean> {
-    const bar = this.navBar(title);
-    await bar.waitForDisplayed({ timeout: 10000 }).catch(() => {});
-    return bar.isDisplayed();
+  /** Assert a row with the given label is displayed. */
+  async expectRowDisplayed(name: string): Promise<void> {
+    await expect(this.row(name)).toBeDisplayed();
   }
 }

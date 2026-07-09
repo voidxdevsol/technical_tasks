@@ -1,4 +1,3 @@
-import { expect } from '@wdio/globals';
 import { SettingsScreen } from '../screens/SettingsScreen.js';
 
 /**
@@ -25,17 +24,17 @@ describe('iOS Settings', () => {
    */
   it('navigates General -> About and shows device information', async () => {
     await settings.openRow('General');
-    expect(await settings.isOnPage('General')).toBe(true);
+    await settings.expectOnPage('General');
 
     await settings.openRow('About');
-    expect(await settings.isOnPage('About')).toBe(true);
+    await settings.expectOnPage('About');
 
     // The About screen renders its device-info fields (values are device- and
     // runtime-specific, so we assert the labelled rows exist rather than pin
     // exact values).
-    expect(await settings.isRowDisplayed('Name')).toBe(true);
-    expect(await settings.isRowDisplayed('iOS Version')).toBe(true);
-    expect(await settings.isRowDisplayed('Model Name')).toBe(true);
+    await settings.expectRowDisplayed('Name');
+    await settings.expectRowDisplayed('iOS Version');
+    await settings.expectRowDisplayed('Model Name');
   });
 
   /**
@@ -47,9 +46,9 @@ describe('iOS Settings', () => {
    */
   it('opens the Accessibility section and shows its options', async () => {
     await settings.openRow('Accessibility');
-    expect(await settings.isOnPage('Accessibility')).toBe(true);
+    await settings.expectOnPage('Accessibility');
 
     // "Motion" is a stable child row of the Accessibility screen.
-    expect(await settings.isRowDisplayed('Motion')).toBe(true);
+    await settings.expectRowDisplayed('Motion');
   });
 });
