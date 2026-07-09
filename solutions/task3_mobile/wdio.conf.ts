@@ -1,15 +1,16 @@
 import type { Options } from '@wdio/types';
 
 /**
- * WebdriverIO configuration for the iOS Calculator automation suite.
+ * WebdriverIO configuration for the iOS Settings automation suite.
  *
- * SUT: Apple Calculator (bundleId com.apple.calculator) on the iOS Simulator.
+ * SUT: Apple Settings (bundleId com.apple.Preferences) on the iOS Simulator.
+ * Calculator is not bundled with the simulator, so Settings is used instead.
  * Driver: Appium XCUITest. The Appium server is started/stopped automatically
  * by @wdio/appium-service, so a single `bun run test` boots everything.
  *
  * Device name and platform version are read from env vars so the suite adapts
  * to whatever simulator runtime is installed:
- *   IOS_DEVICE_NAME      (default: "iPhone 15")
+ *   IOS_DEVICE_NAME      (default: "iPhone 17")
  *   IOS_PLATFORM_VERSION (default: unset -> Appium picks the newest installed)
  */
 export const config: Options.Testrunner = {
@@ -31,7 +32,7 @@ export const config: Options.Testrunner = {
         ? { 'appium:platformVersion': process.env.IOS_PLATFORM_VERSION }
         : {}),
       'appium:bundleId': 'com.apple.Preferences',
-      // Reuse an already-booted simulator when present; speeds up local reruns.
+      // Keep the session alive between commands during slow simulator boots.
       'appium:newCommandTimeout': 120,
     },
   ],
