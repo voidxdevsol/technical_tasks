@@ -1,7 +1,7 @@
 {
   "name": "task3-mobile-automation",
   "version": "1.0.0",
-  "description": "Moxymind Technical Task #3 — Mobile test automation for the iOS Calculator (Appium + WebdriverIO + TypeScript, Screen Object Model)",
+  "description": "Moxymind Technical Task #3 — Mobile test automation for the iOS Settings app (Appium + WebdriverIO + TypeScript, Screen Object Model)",
   "type": "module",
   "engines": {
     "node": ">=18 <=22"
