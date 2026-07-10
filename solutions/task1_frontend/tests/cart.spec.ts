@@ -27,7 +27,7 @@ test.describe('Cart', () => {
     for (const product of PRODUCTS) {
       await inventory.addToCart(product);
     }
-    await expect(inventory.cartBadge).toHaveText(String(PRODUCTS.length));
+    await expect(inventory.cartBadge).toHaveText('3');
 
     await inventory.openCart();
     await cart.expectLoaded();
