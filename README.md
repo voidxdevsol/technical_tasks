@@ -1,5 +1,7 @@
 # Moxymind — QA Technical Tasks
 
+[![Task 1 — Frontend](https://github.com/voidxdevsol/technical_tasks/actions/workflows/task1-frontend.yml/badge.svg)](https://github.com/voidxdevsol/technical_tasks/actions/workflows/task1-frontend.yml)
+
 Solutions to the Moxymind technical assignment by **Volodymyr Neimet**.
 
 Each task lives in its own self-contained folder under [`solutions/`](solutions/) with
